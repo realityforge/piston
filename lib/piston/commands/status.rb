@@ -9,7 +9,6 @@ module Piston
         # First, find the list of pistoned folders
         folders = svn(:propget, '--recursive', Piston::ROOT, *args)
         repos = Hash.new
-        repo = nil
         folders.each_line do |line|
           next unless line =~ /(\w.*) - /
           repos[$1] = Hash.new
@@ -41,7 +40,7 @@ module Piston
         end
 
         # And their remote status, if required
-        repos.each_pair do |path, props|
+        repos.values.each do |props|
           log = svn(:log, '--revision', "#{props[Piston::REMOTE_REV]}:HEAD", '--quiet', '--limit', '2', props[Piston::ROOT])
           props[:remotely_modified] = 'M' if log.count("\n") > 3
         end if show_updates
