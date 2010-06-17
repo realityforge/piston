@@ -26,7 +26,7 @@ spec = Gem::Specification.new do |s|
   s.executables = ["piston"]
   s.default_executable = "piston"
 
-  s.files = [ "CHANGELOG", "README", "LICENSE", "Rakefile" ] + FileList["{contrib,bin,spec,lib}/**/*"].to_a
+  s.files = [ "CHANGELOG", "README.rdoc", "LICENSE", "Rakefile" ] + FileList["{contrib,bin,spec,lib}/**/*"].to_a
 
   s.require_path = 'lib'
   s.has_rdoc = false
