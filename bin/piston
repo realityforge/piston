@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'rubygems'
+rescue LoadError
+  # no rubygems to load, so we fail silently
+end
+
+require 'piston'
+PistonCommandLineProcessor.parse_and_execute

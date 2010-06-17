@@ -1,0 +1,43 @@
+have piston &&
+_piston()
+{
+  local cur prev commands options command
+
+  COMPREPLY=()
+  cur=${COMP_WORDS[COMP_CWORD]}
+
+  commands='update convert help unlock lock import switch'
+
+  if [[ $COMP_CWORD -eq 1 ]] ; then
+    if [[ "$cur" == -* ]]; then
+      COMPREPLY=( $( compgen -W '--version' -- $cur ) )
+    else
+      COMPREPLY=( $( compgen -W "$commands" -- $cur ) )
+    fi
+  else
+
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    command=${COMP_WORDS[1]}
+
+    if [[ "$cur" == -* ]]; then
+      case $command in
+        @(update|import))
+          options='-r --revision --lock --verbose'
+          ;;
+      esac
+      options="$options --verbose"
+
+      COMPREPLY=( $( compgen -W "$options" -- $cur ) )
+    else
+      if [[ "$command" == @(help|h|\?) ]]; then
+        COMPREPLY=( $( compgen -W "$commands" -- $cur ) )
+      else
+        _filedir
+      fi
+    fi
+  fi
+
+  return 0
+}
+
+[ -n "${have:-}" ] && complete -F _piston $default piston

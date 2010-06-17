@@ -1,0 +1,81 @@
+*SVN*
+
+2008-02-07 1.4.0
+* New piston diff subcommand, implemented by Graeme Mathieson.
+  http://rubyforge.org/tracker/index.php?func=detail&aid=17116&group_id=2105&atid=8179
+* Per http://rubyforge.org/tracker/?func=detail&atid=8179&aid=10717&group_id=2105
+  Don't set LC_ALL, but set LANGUAGE so that repositories with foreign
+  characters can be used.  Thanks go to Per Wigren.
+
+2007-03-22 1.3.3
+* Repaired problems with import subcommand.  Wrote specifications to prevent
+  the same failure mode again.
+
+2007-03-09 1.3.2
+* piston switch had a bad constant access which caused failures.
+
+2007-03-09 1.3.1
+* piston switch would fail if the branch from which we are reading had been
+  deleted.
+* piston switch had a major bug.  It did not update the piston:root property
+  to remember the new repository root.  Reported and fixed by Graeme
+  Mathieson.
+* piston switch errors out early if not provided with the right arguments.
+  Thanks to Graeme Mathieson for the info and patch.
+* New internal command parser.  No visible external changes.
+
+2007-01-22 1.3.0
+* Piston status shows the revision number of locked repositories.  Thanks to
+  Chris Wanstrath <http://errtheblog.com/>.
+* New piston switch subcommand to switch repository locations.  Thanks to
+  Greg Spurrier for the prompt which resulted in finally implementing this.
+
+2006-11-20 1.2.1
+* Import subcommand would fail with a "svn: Explicit target required
+  ('vendor/rails' interpreted as prop value)" error.  This was a minor
+  error in the import code.  Reported by Daniel N.
+* The import subcommand could import another revision than what was intended,
+  if HEAD was updated while the import is in progress.
+
+2006-11-17 1.2.0
+* New status subcommand.  Shows M if locally or remotely modified. Applies to
+  one, many, all folders.  This subcommand *requires* the use of a Subversion
+  1.2.0 client.  Thanks to Chris Wanstrath for the inspiration.  His Rake
+  tasks are available at http://errtheblog.com/post/38.
+* Minor patch by Miguel Ibero Carreras to make Subversion always use the
+  C locale, instead of the current one.  This allows Piston to be used
+  with internationalized versions of Subversion.  David Bittencourt later
+  reported the same problem.  Thanks!
+* Better handle how update finds it's latest local revision to prevent
+  conflicts.  If you had never locally changed your vendor repositories,
+  this fix will change nothing for you.  This helps prevent local conflicts
+  if you had ever applied a local patch.
+  *CAVEAT*: See the release announcement at
+            http://blog.teksol.info/articles/2006/11/17/piston-1-2-0-status-better-update
+            for a required local operation.
+
+2006-08-30 1.1.1
+* Add contrib/piston [Michael Schuerig]
+* Non-recursively add the root directory of the managed folder then set Piston
+  properties before adding the contents of the managed folder.  This is to
+  help ease work along if an inconsistent EOL is encountered during the
+  import.  The user can finish the import by svn add'ing the rest of the
+  folder until all files are added.  Piston properties will already have been
+  set.
+
+2006-08-26 1.1.0
+* New 'convert' subcommand converts existing svn:externals to Piston managed
+  folders.  Thanks to Dan Kubb for the idea.
+* update now recursively finds the folders to process.  It bases it's search
+  on the presence or absence of the piston:root property.
+* Changed lock and unlock messages to be more detailed.
+
+2006-08-24 1.0.1
+* Corrected minor bug where the core extensions were in core_ext/core_ext
+  instead of being in core_ext.
+* Require the parent working copy path be at HEAD before importing / updating.
+* Don't do unnecessary merges if the file had not changed prior to the update.
+* During the update, if adding a folder, do an svn mkdir instead of a cp_r.
+
+2006-08-24 1.0.0
+* Initial version
