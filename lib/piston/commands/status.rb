@@ -17,12 +17,20 @@ module Piston
 
         # Then, get their properties
         repo = nil
+        last_piston_key = nil
         svn(:proplist, '--verbose', *repos.keys).each_line do |line|
           case line
           when /'([^']+)'/
             repo = repos[$1]
           when /(piston:[-\w]+)\s*:\s*(.*)$/
             repo[$1] = $2
+            when /(piston:[-\w]+)\s$/
+              last_piston_key = $1
+            when /^\s*(.*)\s*$/
+              repo[last_piston_key] = $1 if last_piston_key
+              last_piston_key = nil
+            else
+              last_piston_key = nil
           end
         end
 
