@@ -16,9 +16,6 @@ RUBY_FORGE_USER    = "fbos"
 
 task :default => :specs
 
-# Create compressed packages
-dist_dirs = [ "lib", "spec"]
-
 spec = Gem::Specification.new do |s|
   s.name = PKG_NAME
   s.version = PKG_VERSION
