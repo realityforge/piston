@@ -1,5 +1,3 @@
-require "piston"
-
 module Piston
   module VERSION #:nodoc:
     MAJOR = 1
