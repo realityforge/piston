@@ -8,7 +8,7 @@ gem_spec = Gem::Specification.load(File.expand_path('piston.gemspec', File.dirna
 
 Spec::Rake::SpecTask.new(:spec) do |spec|
   spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
+  spec.spec_files = FileList['specs/**/*_spec.rb']
 end
 
 task :default => :spec
