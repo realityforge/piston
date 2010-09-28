@@ -1,5 +1,5 @@
 Gem::Specification.new do |spec|
-  spec.name           = 'piston'
+  spec.name           = 'realityforge-piston'
   spec.version        = Piston::VERSION::STRING
   spec.authors        = ['Francois Beausoleil','Peter Donald']
   spec.email          = ["francois@teksol.info", "peter@realityforge.org"]
